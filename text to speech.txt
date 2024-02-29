@@ -1,0 +1,15 @@
+import os
+
+def text_to_speech(text, lang='en'):
+    if os.name == 'posix':  # For Linux
+        os.system(f"espeak -v {lang} '{text}'")
+    elif os.name == 'nt':   # For Windows
+        os.system(f"powershell -command \"Add-Type -AssemblyName System.Speech; (New-Object System.Speech.Synthesis.SpeechSynthesizer).Speak('{text}')\"")
+
+def main():
+    text = input("Enter the text to convert to speech: ")
+    language = input("Enter the language (default is English): ") or 'en'
+    text_to_speech(text, language)
+
+if __name__ == "__main__":
+    main()
